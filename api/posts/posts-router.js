@@ -43,7 +43,14 @@ router.post('/', (req, res) => {
   } else {
     Post.insert(req.body)
     .then(post => {
-      res.status(201).json(post);
+      console.log(post.id);
+      Post.findById(post.id)
+        .then( newPost => {
+          res.status(201).json(newPost);
+        })
+        .catch(err => {
+          console.log(err);
+        })
     })
     .catch(error => {
       console.log(error);
